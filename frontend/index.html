@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lab Agent Pro</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+<div id="app">
+<h2>AI实验室助手</h2>
+
+<input v-model="msg" placeholder="输入问题">
+<button @click="send">发送</button>
+
+<p>{{reply}}</p>
+</div>
+
+<script>
+new Vue({
+ el:"#app",
+ data:{msg:"",reply:""},
+ methods:{
+  send(){
+   axios.post("http://localhost:8080/api/chat",{message:this.msg})
+   .then(res=>this.reply=res.data.reply)
+  }
+ }
+})
+</script>
+</body>
+</html>
